@@ -1,6 +1,7 @@
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * An instance represents a Solver that intelligently determines
@@ -25,11 +26,26 @@ public class AI implements Solver {
     }
 
     /**
-     * See Solver.getMoves for the specification.
+     * Return this Solver's preferred Moves. If this Solver prefers one
+     * Move above all others, return an array of length 1. Larger arrays
+     * indicate equally preferred Moves.
+     * An array of size 0 indicates that there are no possible moves.
+     * Precondition: b is not null.
      */
     @Override
     public Move[] getMoves(Board b) {
-        // TODO
+        Function<Move,State> getStateAndCreateTree = m -> {
+        	State s = new State(player, b, m);
+        	s.initializeChildren();
+        	minimax(s);
+        	
+        	return s;
+        };
+        
+     
+        
+        State[] intilisedStates = Arrays.stream(b.getPossibleMoves(player)).map(getStateAndCreateTree).toArray(State[]::new);
+        
         return null;
     }
 
@@ -55,7 +71,6 @@ public class AI implements Solver {
     	Arrays.stream(s.getChildren()).forEach(t -> createGameTree(t,d-1));
     	
     	
-        // TODO
     }
 
     /**
@@ -71,7 +86,11 @@ public class AI implements Solver {
      * tree rooted at s, indicating how desirable that java.State is to this player.
      */
     public void minimax(State s) {
-        // TODO
+        if(s.getChildren().length==0){
+        	s.setValue(evaluateBoard(s.getBoard()));
+        	return;
+        }
+        Arrays.stream(s.getChildren()).forEach(c -> c.setValue(evaluateBoard(c.getBoard())));
     }
 
     /**
