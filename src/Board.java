@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -86,7 +88,7 @@ public class Board {
         // throw new UnsupportedOperationException("You need to implement makeMove before running the game.");
     	int column = move.getColumn();
     	Player player= move.getPlayer();
-    	System.out.println(NUM_ROWS-1);
+    	//System.out.println(NUM_ROWS-1);
     		int index = NUM_ROWS-1;
     		while(true){
     			if(index==-1){
@@ -111,8 +113,25 @@ public class Board {
      * array of length 0.
      */
     public Move[] getPossibleMoves(Player p) {
-        // TODO
-        return null;
+     
+        if(hasConnectFour()!=null){
+        	System.out.println("Some one has won the game");
+        	return new Move[0];
+        }
+        		
+        //Get Move
+        ArrayList<Move> arr = new ArrayList<>();
+	      for(int i = Board.NUM_COLS-1; i>=0; i--){
+	    	  for(int x = Board.NUM_ROWS-1; x>=0; x--){
+	    		  if(getTile(x, i)==null){ 
+	    			 arr.add(new Move(p, i));
+	    			 break;
+	    		  }
+	    	  }
+	      }
+	      arr.sort((m1, m2)->{if(m1.getColumn()>m2.getColumn()){return 1;}
+		return -1;});
+        return arr.toArray(new Move[arr.size()]);
     }
 
     /**
