@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
 public class AI implements Solver {
 
     private Player player; // the current player
-
+   
     /**
      * The depth of the search in the game space when evaluating moves.
      */
@@ -46,7 +47,14 @@ public class AI implements Solver {
     public static void createGameTree(State s, int d) {
         // Note: This method must be recursive, recurse on d,
         // which should get smaller with each recursive call
-
+    	if(d==0){
+    		return;
+    	}
+    	s.initializeChildren();
+    	System.out.println(d);
+    	Arrays.stream(s.getChildren()).forEach(t -> createGameTree(t,d-1));
+    	
+    	
         // TODO
     }
 
