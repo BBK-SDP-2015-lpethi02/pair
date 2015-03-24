@@ -2,7 +2,9 @@
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -111,14 +113,31 @@ public class State implements Comparable<Object> {
      * initializes only this State's children; it does not recursively
      * initialize all descendants.
      */
-    public void initializeChildren() {
-        // TODO
+    public void initializeChildren() {    	
     	
+    	//----------FUNCTIONAL	
     	Function<Move, State> moveState = m -> {
-    		return new State(player.opponent(),board,m);
+    		Board  b = new Board(board);
+    		b.makeMove(m);
+    		return new State(m.getPlayer(),b,m);
     	};
     	children = Arrays.stream(board.getPossibleMoves(player.opponent())).map(moveState).toArray(State[]::new);
     	
+    	//----------ITERATIVE
+    	
+    	//List<State> states = new ArrayList<State>();
+    	//State[] newStates = new State[board.getPossibleMoves(player.opponent()).length];
+    //	int index = 0;
+//    	for(Move m:board.getPossibleMoves(player.opponent())){
+//    		System.out.println(m);
+//    		Board b = new Board(board);
+//    		b.makeMove(m);
+//    		System.out.println("lola board is "+board);
+//    		newStates[index]=new State(player.opponent(), b, m);
+//    		index++;
+//    	}
+//    	System.out.println("the length of new states is "+newStates.length);
+//    	children = newStates;	
     }
 
     /**
