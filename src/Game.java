@@ -35,8 +35,8 @@ public class Game {
        //Solver p2 = new Dummy(Player.YELLOW);
     	
 
-        Solver p1= new AI(Player.RED, 5);
-        Solver p2= new AI(Player.YELLOW, 5);
+        Solver p1= new AI(Player.RED, 2);
+        Solver p2= new AI(Player.YELLOW, 2);
 
         Game game = new Game(p1, p2);
         game.runGame();

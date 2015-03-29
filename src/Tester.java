@@ -53,15 +53,17 @@ public class Tester {
 	
 	public static void testMinMax(){
 		Board b = new Board();
-		Move m = new Move(Player.RED, 0);
+		Move m = new Move(Player.YELLOW, 0);
+		b.makeMove(m);
+		m = new Move(Player.YELLOW, 0);
+		b.makeMove(m);
+		m = new Move(Player.YELLOW, 0);
 		b.makeMove(m);
 		
-		
-		
-		State testState = new State(Player.YELLOW, b, null);
-		
-		AI.createGameTree(testState, 1);
+		State testState = new State(Player.RED, b, null);
+		AI.createGameTree(testState, 2);
 		AI.minimax(new AI(Player.RED, 5),testState);
+		
 		testState.writeToFile();	
 	}
 	

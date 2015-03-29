@@ -40,7 +40,7 @@ public class GUI extends JFrame {
         //Solver p2 = new Dummy(Player.YELLOW);
         
         Solver p1 = new Human(Player.YELLOW);
-        Solver p2= new AI(Player.RED, 5);
+        Solver p2= new AI(Player.RED, 2);
 
        // Solver p2 = new Dummy(Player.YELLOW);
 
@@ -71,10 +71,8 @@ public class GUI extends JFrame {
         msgPanel.setLayout(new GridLayout(1, 4));
         msgLabel = new JLabel("");
         msgPanel.add(msgLabel);
-
         //Toolbar of Column Buttons
         JToolBar toolbar = setUpToolBar();
-
         add(toolbar, BorderLayout.NORTH);
         add(gamePanel, BorderLayout.CENTER);
         add(msgPanel, BorderLayout.SOUTH);

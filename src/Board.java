@@ -109,13 +109,9 @@ public class Board {
      * array of length 0.
      */
     public Move[] getPossibleMoves(Player p) {
-     
         if(hasConnectFour()!=null){
-        	System.out.println("Some one has won the game");
         	return new Move[0];
         }
-        		
-        //Get Move
         ArrayList<Move> arr = new ArrayList<>();
 	      for(int i = Board.NUM_COLS-1; i>=0; i--){
 	    	  for(int x = Board.NUM_ROWS-1; x>=0; x--){
@@ -125,7 +121,7 @@ public class Board {
 	    		  }
 	    	  }
 	      }
-	      arr.sort((m1, m2)->{if(m1.getColumn()>m2.getColumn()){return 1;}
+	    arr.sort((m1, m2)->{if(m1.getColumn()>m2.getColumn()){return 1;}
 		return -1;});
         return arr.toArray(new Move[arr.size()]);
     }

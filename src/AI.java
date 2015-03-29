@@ -42,7 +42,6 @@ public class AI implements Solver {
 				.filter(st -> s.getValue() == st.getValue())
 				.map(m -> m.getLastMove()).toArray(Move[]::new);
 		return bm;
-
 	}
 
 	/**
