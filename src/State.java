@@ -90,6 +90,8 @@ public class State implements Comparable<Object> {
     public void setChildren(State[] c) {
         children = c;
     }
+    
+    
 
     /**
      * Return this State's value.
@@ -113,31 +115,12 @@ public class State implements Comparable<Object> {
      * initializes only this State's children; it does not recursively
      * initialize all descendants.
      */
-    public void initializeChildren() {    	
-    	
-    	//----------FUNCTIONAL	
+    public void initializeChildren() {   
     	Function<Move, State> moveState = m -> {
-    		Board  b = new Board(board);
-    		b.makeMove(m);
+    		Board  b = new Board(board,m);
     		return new State(m.getPlayer().opponent(),b,m);
     	};
-    	children = Arrays.stream(board.getPossibleMoves(player)).map(moveState).toArray(State[]::new);
-    	
-    	//----------ITERATIVE
-    	
-    	//List<State> states = new ArrayList<State>();
-    	//State[] newStates = new State[board.getPossibleMoves(player.opponent()).length];
-    //	int index = 0;
-//    	for(Move m:board.getPossibleMoves(player.opponent())){
-//    		System.out.println(m);
-//    		Board b = new Board(board);
-//    		b.makeMove(m);
-//    		System.out.println("lola board is "+board);
-//    		newStates[index]=new State(player.opponent(), b, m);
-//    		index++;
-//    	}
-//    	System.out.println("the length of new states is "+newStates.length);
-//    	children = newStates;	
+    	children = Arrays.stream(board.getPossibleMoves(player)).map(moveState).toArray(State[]::new);	
     }
 
     /**

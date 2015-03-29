@@ -83,20 +83,20 @@ public class Board {
      * Throw an IllegalArgumentException if move's column is full on this Board.
      */
     public void makeMove(Move move) {
-    int column = move.getColumn();
-    	Player player= move.getPlayer();
-    		int index = NUM_ROWS-1;
-    		while(true){
-    			if(index==-1){
-    				throw new IllegalArgumentException();
-    			}
-    			if(getTile(index,column)==null){
-    				board[index][column]=player;
-    				return;
-    			}
-    			index = index-1;
-    		}	
-    }
+	    int column = move.getColumn();
+	    Player player= move.getPlayer();
+	    int index = NUM_ROWS-1;		
+		while(true){
+			if(index==-1){
+				throw new IllegalArgumentException();
+			}
+			if(getTile(index,column)==null){
+				board[index][column]=player;
+				return;
+			}
+			index = index-1;
+		}
+	  }
 
     /**
      * Return an array of all moves that can possibly be made by Player p on this
