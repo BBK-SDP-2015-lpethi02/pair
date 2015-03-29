@@ -15,7 +15,7 @@ public class Game {
     private static final long SLEEP_INTERVAL = 10; //in milliseconds
 
     /**
-     * Have the computer play against itself, putting output int the default
+     * Have the computer play against itself, putting output in the default
      * Java console.
      * You can also have your new AI player play from here, with no GUI output.
      * It may be useful for testing.
@@ -31,11 +31,12 @@ public class Game {
          * searches the game space. */
     	
 
-       Solver p1 = new Dummy(Player.RED);
-       Solver p2 = new Dummy(Player.YELLOW);
+       //Solver p1 = new Dummy(Player.RED);
+       //Solver p2 = new Dummy(Player.YELLOW);
+    	
 
-        //Solver p1= new AI(Board.Player.RED, 5);
-        //Solver p2= new AI(Board.Player.YELLOW, 5);
+        Solver p1= new AI(Player.RED, 5);
+        Solver p2= new AI(Player.YELLOW, 5);
 
         Game game = new Game(p1, p2);
         game.runGame();
@@ -60,14 +61,21 @@ public class Game {
          *     
          * For example, you can write the following to set up an initial board and
          * then play the game
-         * 
-         *      Board b= new Board();
-         *      b.makeMove(new Move(Player.RED, 4));
-         *      b.makeMove(new Move(Player.YELLOW, 3));
-         *      b.makeMove(new Move(Player.RED, 5));
-         *      Game game= new Game(p1, p2, b, false);
-         * 
-         * This code places a red piece in column 4, a yellow piece in column 3,
+         */ 
+//              Board b= new Board();
+//               b.makeMove(new Move(Player.RED, 4));
+//               b.makeMove(new Move(Player.RED, 4));
+//               b.makeMove(new Move(Player.RED, 4));
+//               b.makeMove(new Move(Player.RED, 4));
+//             
+//          
+//               Move[] moves= b.getPossibleMoves(Player.RED);
+//               for (Move m : moves) {
+//                    System.out.println(m);
+//               }
+               //Game game= new Game(p1, p2, b, false);
+          
+         /* This code places a red piece in column 4, a yellow piece in column 3,
          * and a red piece in column 5. Then it runs the game.
          * 
          * We give you also procedure fillColumn at the end of this file to help
@@ -171,6 +179,8 @@ public class Game {
             //Checking to see that the move can be made (not overflowing a column)
             boolean moveIsSafe = false;
             Move nextMove = null;
+            
+            //Gets next move and checks that it is safe
             while (!moveIsSafe) {
                 Move[] bestMoves = activePlayer.getMoves(board);
                 if (bestMoves.length == 0) {

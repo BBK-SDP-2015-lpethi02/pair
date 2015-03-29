@@ -119,9 +119,9 @@ public class State implements Comparable<Object> {
     	Function<Move, State> moveState = m -> {
     		Board  b = new Board(board);
     		b.makeMove(m);
-    		return new State(m.getPlayer(),b,m);
+    		return new State(m.getPlayer().opponent(),b,m);
     	};
-    	children = Arrays.stream(board.getPossibleMoves(player.opponent())).map(moveState).toArray(State[]::new);
+    	children = Arrays.stream(board.getPossibleMoves(player)).map(moveState).toArray(State[]::new);
     	
     	//----------ITERATIVE
     	
@@ -162,6 +162,7 @@ public class State implements Comparable<Object> {
     public String toString() {
         System.out.println("State.toString printing");
         return toStringHelper(0, "");
+        
     }
 
     /**
@@ -171,7 +172,8 @@ public class State implements Comparable<Object> {
      * indented an additional ind characters. d is the depth of this state.
      */
     private String toStringHelper(int d, String ind) {
-        String str = ind + player + " to play\n";
+        String str = ind + player + " to play\n"+" and last move was "+lastMove+"\n";
+        
         str = str + ind + "Value: " + value + "\n";
         str = str + board.toString(ind) + "\n";
         if (children != null && children.length > 0) {
