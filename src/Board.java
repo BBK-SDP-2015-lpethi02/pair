@@ -83,12 +83,8 @@ public class Board {
      * Throw an IllegalArgumentException if move's column is full on this Board.
      */
     public void makeMove(Move move) {
-        // TODO
-        // Delete the following code once you've decided to start implementing
-        // throw new UnsupportedOperationException("You need to implement makeMove before running the game.");
-    	int column = move.getColumn();
+    int column = move.getColumn();
     	Player player= move.getPlayer();
-    	//System.out.println(NUM_ROWS-1);
     		int index = NUM_ROWS-1;
     		while(true){
     			if(index==-1){
@@ -123,7 +119,7 @@ public class Board {
         ArrayList<Move> arr = new ArrayList<>();
 	      for(int i = Board.NUM_COLS-1; i>=0; i--){
 	    	  for(int x = Board.NUM_ROWS-1; x>=0; x--){
-	    		  if(getTile(x, i)==null){ 
+	    		  if(getTile(x, i)==null&&x!=7){ 
 	    			 arr.add(new Move(p, i));
 	    			 break;
 	    		  }
