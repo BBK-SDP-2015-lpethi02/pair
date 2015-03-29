@@ -1,6 +1,6 @@
 # pair
 jdocke01
-james dockeray
+James Dockeray
 
 
 lpethi02 
