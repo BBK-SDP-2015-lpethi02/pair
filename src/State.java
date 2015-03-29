@@ -120,7 +120,7 @@ public class State implements Comparable<Object> {
     		Board  b = new Board(board,m);
     		return new State(m.getPlayer().opponent(),b,m);
     	};
-    	children = Arrays.stream(board.getPossibleMoves(player)).map(moveState).toArray(State[]::new);	
+    	children = Arrays.stream(board.getPossibleMoves(player)).parallel().map(moveState).toArray(State[]::new);	
     }
 
     /**

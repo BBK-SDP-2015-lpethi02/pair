@@ -34,44 +34,11 @@ public class AI implements Solver {
 	 */
 	@Override
 	public Move[] getMoves(Board b) {
-		// Function<Move,State> getStateAndCreateTree = m -> {
-		// Board b2 = new Board(b);
-		// b2.makeMove(m);
-		// State s = new State(m.getPlayer(), b2, m);
-		// createGameTree(s, depth);
-		// minimax(s);
-		// s.writeToFile();
-		// return s;
-		// };
-		//
-		// State[] topLevelMoveStates =
-		// Arrays.stream(b.getPossibleMoves(player)).map(getStateAndCreateTree).toArray(State[]::new);
-		// Arrays.sort(topLevelMoveStates, (s1, s2) -> s1.getValue() -
-		// s2.getValue());
-		//
-		// return Arrays.stream(topLevelMoveStates).filter(s1 ->
-		// s1==topLevelMoveStates[topLevelMoveStates.length-1]).map(s1 ->
-		// s1.getLastMove()).toArray(Move[]::new);
-		//
-		// List<State> states = new ArrayList<>();
-		// for(Move m:b.getPossibleMoves(player)){
-		// states.add(new State(player,new Board(b, m),m));
-		// }
-		// State[] marr = states.stream().map(c ->{createGameTree(c,
-		// depth);return c;}).toArray(State[]::new);
-		// Arrays.sort(marr, (a, z) -> a.getValue()-z.getValue());
-		// Move[] returnMoves = new Move[1];
-		// Move[] returnMoves = Arrays.stream(marr[0].getChildren()).filter(s ->
-		// s.getValue() == marr[0].getValue()).map(s ->
-		// s.getLastMove()).toArray(Move[]::new);
-		// return returnMoves;
-		// return Arrays.copyOfRange(marr, 0, 1)[0].getChildren().sort(marr, (a,
-		// z) -> a.getValue()-z.getValue()).;
 		State s = new State(player, b, null);
 		createGameTree(s, depth);
 		minimax(s);
 		Arrays.sort(s.getChildren(), (a, z) -> a.getValue() - z.getValue());
-		Move[] bm = Arrays.stream(s.getChildren())
+		Move[] bm = Arrays.stream(s.getChildren()).parallel()
 				.filter(st -> s.getValue() == st.getValue())
 				.map(m -> m.getLastMove()).toArray(Move[]::new);
 		return bm;
@@ -96,7 +63,7 @@ public class AI implements Solver {
 			return;
 		}
 		s.initializeChildren();
-		Arrays.stream(s.getChildren()).forEach(t -> createGameTree(t, d - 1));
+		Arrays.stream(s.getChildren()).parallel().forEach(t -> createGameTree(t, d - 1));
 	}
 
 	/**
@@ -117,7 +84,7 @@ public class AI implements Solver {
 			s.setValue(evaluateBoard(s.getBoard()));
 			return;
 		} else {
-			Arrays.stream(s.getChildren()).forEach(o -> minimax(o));
+			Arrays.stream(s.getChildren()).parallel().forEach(o -> minimax(o));
 			Arrays.sort(s.getChildren(),
 					(s1, s2) -> s1.getValue() - s2.getValue());
 
